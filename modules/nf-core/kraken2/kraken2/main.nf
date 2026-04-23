@@ -35,24 +35,15 @@ process KRAKEN2_KRAKEN2 {
     def compress_reads_command = save_output_fastqs ? "pigz -p $task.cpus *.fastq" : ""
 
     """
-    kraken2 \\
-        --db $db \\
-        --threads $task.cpus \\
-        --report ${prefix}.kraken2.report.txt \\
-        --gzip-compressed \\
-        $unclassified_option \\
-        $classified_option \\
-        $readclassification_option \\
-        $paired \\
-        $args \\
-        $reads
+    
+    memory_eating_array=(1000 1000 1000 1000 1000)
 
-    $compress_reads_command
+    touch report.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        kraken2: \$(echo \$(kraken2 --version 2>&1) | sed 's/^.*Kraken version //; s/ .*\$//')
-        pigz: \$( pigz --version 2>&1 | sed 's/pigz //g' )
+        kraken2: 0)
+        pigz: 0)
     END_VERSIONS
     """
 
@@ -77,8 +68,8 @@ process KRAKEN2_KRAKEN2 {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        kraken2: \$(echo \$(kraken2 --version 2>&1) | sed 's/^.*Kraken version //; s/ .*\$//')
-        pigz: \$( pigz --version 2>&1 | sed 's/pigz //g' )
+        kraken2: 0)
+        pigz: 0)
     END_VERSIONS
     """
 
